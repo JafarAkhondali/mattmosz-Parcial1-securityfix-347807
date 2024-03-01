@@ -23,7 +23,39 @@ document.addEventListener('DOMContentLoaded', function(){
         "bDestroy": true,
         "iDisplayLength": 10,
         "order": [[0, "asc"]]
-    })
+    });
+
+    var formInscrito = document.querySelector('#formInscrito');
+    formInscrito.onsubmit = function(e){
+        e.preventDefault();
+        var estudianteID = document.querySelector('#estudianteID').value;
+        var cursoID = document.querySelector('#cursoID').value;
+
+        if(estudianteID == '' || cursoID == ''){
+            swal('Atencion', 'Todos los campos son obligatorios', 'error');
+            return false;
+        }
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/inscritos/ajax-inscritos.php';
+        var form = new FormData(formInscrito);
+        request.open('POST', url, true);
+        request.send(form);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    $('#modalInscritos').modal('hide');
+                    formInscrito.reset();
+                    swal('Registrado', data.msg, 'success');
+                    tableInscritos.ajax.reload();
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+    }
+
 })
 
 function openModalInscritos(){

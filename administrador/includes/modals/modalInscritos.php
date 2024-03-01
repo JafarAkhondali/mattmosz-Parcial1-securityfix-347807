@@ -8,12 +8,12 @@
             <div class="modal-body">
                 <form id="formInscrito" name="formInscrito">
                     <div class="mb-3">
-                        <label for="control-label">Estudiante:</label>
-                        <input type="text" class="form-control" name="nombreEs" id="nombreEs">
+                        <label for="control-label">Estudiante ID:</label>
+                        <input type="text" class="form-control" name="estudianteID" id="estudianteID">
                     </div>
                     <div class="mb-3">
-                        <label for="control-label">Curso:</label>
-                        <input type="text" class="form-control" name="creditos" id="creditos">
+                        <label for="control-label">Curso ID:</label>
+                        <input type="text" class="form-control" name="cursoID" id="cursoID">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
