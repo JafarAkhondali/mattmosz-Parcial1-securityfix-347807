@@ -24,7 +24,40 @@ document.addEventListener('DOMContentLoaded', function(){
         "bDestroy": true,
         "iDisplayLength": 10,
         "order": [[0, "asc"]]
-    })
+    });
+
+    var formEstudiante = document.querySelector('#formEstudiante');
+    formEstudiante.onsubmit = function(e){
+        e.preventDefault();
+        var nombre = document.querySelector('#nombreE').value;
+        var edad = document.querySelector('#edad').value;
+        var carrera = document.querySelector('#carrera').value;
+        var promedio = document.querySelector('#promedio').value;
+
+        if(nombre == '' || edad == '' || carrera == '' || promedio ==''){
+            swal('Atencion', 'Todos los campos son obligatorios', 'error');
+            return false;
+        }
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/estudiantes/ajax-estudiantes.php';
+        var form = new FormData(formEstudiante);
+        request.open('POST', url, true);
+        request.send(form);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    $('#modalEstudiante').modal('hide');
+                    formEstudiante.reset();
+                    swal('Estudiante Registrado', data.msg, 'success');
+                    tableEstudiantes.ajax.reload();
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+    }
 })
 
 function openModalEstudiantes(){

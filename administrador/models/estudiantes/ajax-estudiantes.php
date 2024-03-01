@@ -2,7 +2,7 @@
 
 require_once '../../../includes/conexion.php';
 if(!empty($_POST)){
-    if(empty($_POST['NOMBRE']) || empty($_POST['EDAD']) || empty($_POST['CARRERA'])){
+    if(empty($_POST['nombreE']) || empty($_POST['edad']) || empty($_POST['carrera'])){
         $respuesta = array('status' => false,'msg' => 'Todos los campos son necesarios');
     }else{
         $nombre = $_POST['nombreE'];
@@ -10,7 +10,7 @@ if(!empty($_POST)){
         $carrera = $_POST['carrera'];
         $promedio = $_POST['promedio'];
 
-        $sql = 'SELECT * FROM estudiante WHERE usuario = ?';
+        $sql = 'SELECT * FROM estudiante WHERE NOMBRE = ?';
         $query = $pdo->prepare($sql);
         $query->execute(array($nombre));
         $result = $query->fetch(PDO::FETCH_ASSOC);
