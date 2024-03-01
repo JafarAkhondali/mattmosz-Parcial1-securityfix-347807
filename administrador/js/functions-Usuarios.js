@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
     var formUsuario = document.querySelector('#formUsuario');
     formUsuario.onsubmit = function(e){
-        console.log('Hola');
         e.preventDefault();
         var nombre = document.querySelector('#nombre').value;
         var usuario = document.querySelector('#usuario').value;
@@ -48,10 +47,10 @@ document.addEventListener('DOMContentLoaded', function(){
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
                 var data = JSON.parse(request.responseText);
-                if(request.status){
+                if(data.status){
                     $('#modalUsuario').modal('hide');
                     formUsuario.reset();
-                    swal('Usuario Registrado', objData.msg, 'success');
+                    swal('Usuario Registrado', data.msg, 'success');
                     tableUsuarios.ajax.reload();
                 }else{
                     swal('Error', data.msg, 'error');
