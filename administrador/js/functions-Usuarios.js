@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     var formUsuario = document.querySelector('#formUsuario');
     formUsuario.onsubmit = function(e){
+        console.log('Hola');
         e.preventDefault();
         var nombre = document.querySelector('#nombre').value;
         var usuario = document.querySelector('#usuario').value;
