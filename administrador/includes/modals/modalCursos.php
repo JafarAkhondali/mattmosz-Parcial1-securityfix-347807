@@ -9,7 +9,7 @@
                 <form id="formCurso" name="formCurso">
                     <div class="mb-3">
                         <label for="control-label">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre">
+                        <input type="text" class="form-control" name="nombreC" id="nombreC">
                     </div>
                     <div class="mb-3">
                         <label for="control-label">Creditos:</label>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" type="submit">Guardar</button>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
                     </div>
                 </form>
             </div>

@@ -24,7 +24,40 @@ document.addEventListener('DOMContentLoaded', function(){
         "bDestroy": true,
         "iDisplayLength": 10,
         "order": [[0, "asc"]]
-    })
+    });
+
+    var formCurso = document.querySelector('#formCurso');
+    formCurso.onsubmit = function(e){
+        e.preventDefault();
+        var nombre = document.querySelector('#nombreC').value;
+        var creditos = document.querySelector('#creditos').value;
+        var profesor = document.querySelector('#profesor').value;
+        var horario = document.querySelector('#horario').value;
+
+        if(nombre == '' || creditos == '' || profesor == ''|| horario == ''){
+            swal('Atencion', 'Todos los campos son obligatorios', 'error');
+            return false;
+        }
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/cursos/ajax-cursos.php';
+        var form = new FormData(formCurso);
+        request.open('POST', url, true);
+        request.send(form);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    $('#modalCursos').modal('hide');
+                    formCurso.reset();
+                    swal('Usuario Registrado', data.msg, 'success');
+                    tableCursos.ajax.reload();
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+    }
 })
 
 function openModalCursos(){
