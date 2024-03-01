@@ -63,3 +63,30 @@ document.addEventListener('DOMContentLoaded', function(){
 function openModalEstudiantes(){
     $('#modalEstudiante').modal('show');
 }
+
+function editarEstudiante(id){
+    var idEstudiante = id;
+
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/estudiantes/edit-estudiantes.php?idEstudiante='+idEstudiante;
+        request.open('GET', url, true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    document.querySelector('#idEstudiante').value = data.data.ID_ESTUDIANTE;
+                    document.querySelector('#nombreE').value = data.data.NOMBRE;
+                    document.querySelector('#edad').value = data.data.EDAD;
+                    document.querySelector('#carrera').value = data.data.CARRERA;
+                    document.querySelector('#promedio').value = data.data.PROMEDIO;
+
+                    $('#modalEstudiante').modal('show');
+
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+}
