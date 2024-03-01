@@ -7,6 +7,7 @@
             </div>
             <div class="modal-body">
                 <form id="formInscrito" name="formInscrito">
+                    <input type="hidden" name="idInscrito" id="idInscrito" value="">
                     <div class="mb-3">
                         <label for="control-label">Estudiante ID:</label>
                         <input type="text" class="form-control" name="estudianteID" id="estudianteID">

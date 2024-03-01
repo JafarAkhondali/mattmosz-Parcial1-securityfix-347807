@@ -61,3 +61,28 @@ document.addEventListener('DOMContentLoaded', function(){
 function openModalInscritos(){
     $('#modalInscritos').modal('show');
 }
+
+function editarInscrito(id){
+    var idInscrito = id;
+
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/inscritos/edit-inscritos.php?idInscrito='+idInscrito;
+        request.open('GET', url, true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    document.querySelector('#idInscrito').value = data.data.id_inscrito;
+                    document.querySelector('#cursoID').value = data.data.id_curso;
+                    document.querySelector('#estudianteID').value = data.data.id_estudiante;
+
+                    $('#modalInscritos').modal('show');
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+
+}

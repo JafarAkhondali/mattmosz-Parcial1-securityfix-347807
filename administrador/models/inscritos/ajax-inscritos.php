@@ -1,10 +1,11 @@
 <?php
 
 require_once '../../../includes/conexion.php';
-if(!empty($_POST)){
-    if(empty($_POST['estudianteID']) || empty($_POST['cursoID'])){
-        $respuesta = array('status' => false,'msg' => 'Todos los campos son necesarios');
-    }else{
+if (!empty($_POST)) {
+    if (empty($_POST['estudianteID']) || empty($_POST['cursoID'])) {
+        $respuesta = array('status' => false, 'msg' => 'Todos los campos son necesarios');
+    } else {
+        $idInscrito = $_POST['idInscrito'];
         $estudianteID = $_POST['estudianteID'];
         $cursoID = $_POST['cursoID'];
 
@@ -13,20 +14,29 @@ if(!empty($_POST)){
         $query->execute(array($cursoID, $estudianteID));
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        if($result > 0){
+        if ($result > 0) {
             $respuesta = array('status' => false, 'msg' => 'El registro ya existe');
-        }else{
-            $sqlInsert = 'INSERT INTO inscrito_en (id_curso, id_estudiante) VALUES (?, ?)';
-            $queryInsert = $pdo->prepare($sqlInsert);
-            $resultInsert = $queryInsert->execute(array($cursoID, $estudianteID));
-            if($resultInsert){
-                $respuesta = array('status' => true, 'msg' => 'Registrado correctamente');
+        } else {
+            if ($idInscrito == 0) {
+                $sqlInsert = 'INSERT INTO inscrito_en (id_curso, id_estudiante) VALUES (?, ?)';
+                $queryInsert = $pdo->prepare($sqlInsert);
+                $request = $queryInsert->execute(array($cursoID, $estudianteID));
+                $accion = 1;
             }else{
-                $respuesta = array('status' => false, 'msg' => 'Error al registrar');
+                $sqlUpdate = 'UPDATE inscrito_en SET id_curso = ?, id_estudiante = ? WHERE id_inscrito = ?';
+                $queryUpdate = $pdo->prepare($sqlUpdate);
+                $request = $queryUpdate->execute(array($cursoID, $estudianteID, $idInscrito));
+                $accion = 2;
             }
+
+            if ($request > 0) {
+                if($accion == 1){
+                    $respuesta = array('status' => true, 'msg' => 'Registrado correctamente');
+                }else{
+                    $respuesta = array('status' => true, 'msg' => 'Actualizado correctamente');
+                }  
+            } 
         }
     }
     echo json_encode($respuesta, JSON_UNESCAPED_UNICODE);
 }
-
-?>
