@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-03-2024 a las 09:01:46
+-- Tiempo de generación: 02-03-2024 a las 00:47:04
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -42,7 +42,8 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`ID_CURSO`, `NOMBRE_CURSO`, `CREDITOS`, `PROFESOR`, `HORARIO`) VALUES
-(1, 'Aplicaciones Distribuidas', 20, 'Ing. Luis Llerena', '2024-03-01 18:30:00');
+(1, 'Aplicaciones Distribuidas', 30, 'Ing. Luis Llerena', '2024-03-01 18:30:00'),
+(2, 'Investigacion de Operaciones', 25, 'Ing. Luis Molina', '2024-03-02 18:30:00');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,9 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`ID_ESTUDIANTE`, `NOMBRE`, `EDAD`, `CARRERA`, `PROMEDIO`) VALUES
-(1, 'Juan Pérez', '20', 'Software', '10');
+(1, 'Juan Pérez', '22', 'Software', '10'),
+(2, 'Pedro Garcia', '21', 'Software', '8'),
+(3, 'Ismael Yepez', '23', 'Software', '9');
 
 -- --------------------------------------------------------
 
@@ -82,7 +85,8 @@ CREATE TABLE `inscrito_en` (
 --
 
 INSERT INTO `inscrito_en` (`id_inscrito`, `id_curso`, `id_estudiante`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -122,7 +126,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `usuario`, `clave`, `rol`, `estado`) VALUES
-(1, 'Matías Mosquera', 'admin', '$2y$10$xtHrt8xU6q2gfIs32ZOlou313YkpHxRtHncR4v5.MDalDHqxdhdaO', 1, 1);
+(1, 'Matías Mosquera', 'admin', '$2y$10$xtHrt8xU6q2gfIs32ZOlou313YkpHxRtHncR4v5.MDalDHqxdhdaO', 1, 1),
+(2, 'Andres Sanchez', 'andres1', '$2y$10$O73Y2UWl3EmB1R.ypipNUeBBeLlMotril2hVY5zXVxE0ILnWAaD.O', 1, 1),
+(3, 'Marcelo Baez', 'marcelo1', '$2y$10$to4og1mmEZH0tVIspXycP.0oGINic3vmnRQn7aEUjjR.QUUWaUxVC', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -168,19 +174,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `ID_CURSO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_CURSO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `ID_ESTUDIANTE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_ESTUDIANTE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `inscrito_en`
 --
 ALTER TABLE `inscrito_en`
-  MODIFY `id_inscrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_inscrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -192,7 +198,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
