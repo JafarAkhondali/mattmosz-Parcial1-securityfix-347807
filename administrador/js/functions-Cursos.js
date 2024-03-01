@@ -63,3 +63,31 @@ document.addEventListener('DOMContentLoaded', function(){
 function openModalCursos(){
     $('#modalCursos').modal('show');
 }
+
+function editarCurso(id){
+    idCurso = id;
+
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/cursos/edit-cursos.php?idCurso='+idCurso;
+        request.open('GET', url, true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    document.querySelector('#idCurso').value = data.data.ID_CURSO;
+                    document.querySelector('#nombreC').value = data.data.NOMBRE_CURSO;
+                    document.querySelector('#creditos').value = data.data.CREDITOS;
+                    document.querySelector('#profesor').value = data.data.PROFESOR;
+                    document.querySelector('#horario').value = data.data.HORARIO;
+
+                    $('#modalCursos').modal('show');
+
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+
+}
