@@ -4,7 +4,7 @@
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Image">
         <div>
           <p class="app-sidebar__user-name">Matias Mosquera</p>
-          <p class="app-sidebar__user-designation">Frontend Developer</p>
+          <p class="app-sidebar__user-designation">Developer</p>
         </div>
       </div>
       <ul class="app-menu">

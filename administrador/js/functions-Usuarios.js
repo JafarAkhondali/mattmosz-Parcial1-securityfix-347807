@@ -29,13 +29,14 @@ document.addEventListener('DOMContentLoaded', function(){
     var formUsuario = document.querySelector('#formUsuario');
     formUsuario.onsubmit = function(e){
         e.preventDefault();
+        var idusuario = document.querySelector('#idusuario').value;
         var nombre = document.querySelector('#nombre').value;
         var usuario = document.querySelector('#usuario').value;
         var clave = document.querySelector('#clave').value;
         var rol = document.querySelector('#listRol').value;
         var estado = document.querySelector('#listEstado').value;
 
-        if(nombre == '' || usuario == '' || clave == ''){
+        if(nombre == '' || usuario == ''){
             swal('Atencion', 'Todos los campos son obligatorios', 'error');
             return false;
         }
@@ -63,4 +64,29 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function openModal(){
     $('#modalUsuario').modal('show');
+}
+
+function editarUsuario(id){
+    var idusuario = id;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var url = './models/usuarios/edit-usuarios.php?idusuario='+idusuario;
+        request.open('GET', url, true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                if(data.status){
+                    document.querySelector('#idusuario').value = data.data.usuario_id;
+                    document.querySelector('#nombre').value = data.data.nombre;
+                    document.querySelector('#usuario').value = data.data.usuario;
+                    document.querySelector('#listRol').value = data.data.rol;
+                    document.querySelector('#listEstado').value = data.data.estado;
+                    $('#modalUsuario').modal('show');
+                }else{
+                    swal('Error', data.msg, 'error');
+                }
+            } 
+            return false;   
+        }
+
 }
